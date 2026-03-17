@@ -92,3 +92,6 @@ DB：PostgreSQL：現場で多く使用されておりDBサーバーを構築・
   ：neon:コスト最適化として以降することを想定
 デプロイ先：Render：無料枠で高機能なデプロイ環境を提供してくれる
 環境：Docker：OSによる差をなくしセットアップを統一
+
+##画面遷移図
+figma : https://www.figma.com/design/hwxOJ0Tr09uNBaOAkew5Cq/%E3%83%95%E3%82%A1%E3%83%9F%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%86%E3%83%83%E3%83%97?node-id=0-1&t=jzwrv6HIpw5T2Nt6-1
