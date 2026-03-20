@@ -95,3 +95,6 @@ DB：PostgreSQL：現場で多く使用されておりDBサーバーを構築・
 
 ##画面遷移図
 figma : https://www.figma.com/design/hwxOJ0Tr09uNBaOAkew5Cq/%E3%83%95%E3%82%A1%E3%83%9F%E3%83%AA%E3%83%BC%E3%82%B9%E3%83%86%E3%83%83%E3%83%97?node-id=0-1&t=jzwrv6HIpw5T2Nt6-1
+
+##ER図
+[![Image from Gyazo](https://i.gyazo.com/f39e275d7b52a8fd244b094116f1f12d.png)](https://gyazo.com/f39e275d7b52a8fd244b094116f1f12d)
