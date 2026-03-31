@@ -1,0 +1,57 @@
+<div class="min-h-screen bg-orange-50 flex items-center justify-center px-4 py-8">
+  <div class="w-full max-w-lg bg-white rounded-2xl shadow-md p-8 md:p-10 border border-orange-100">
+    <h1 class="text-3xl font-bold text-center text-gray-800 mb-3">新規登録</h1>
+    <p class="text-base text-center text-gray-700 mb-8 leading-relaxed">
+      アカウントを作成してはじめましょう
+    </p>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-6" }) do |f| %>
+      <div>
+        <%= f.label :name, "お名前", class: "block text-base font-semibold text-gray-800 mb-2" %>
+        <%= f.text_field :name,
+              autofocus: true,
+              placeholder: "例：山田 花子",
+              class: "w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-base text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500" %>
+      </div>
+
+      <div>
+        <%= f.label :email, "メールアドレス", class: "block text-base font-semibold text-gray-800 mb-2" %>
+        <%= f.email_field :email,
+              autocomplete: "email",
+              placeholder: "例：familystep@example.com",
+              class: "w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-base text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500" %>
+      </div>
+
+      <div>
+        <%= f.label :password, "パスワード", class: "block text-base font-semibold text-gray-800 mb-2" %>
+        <% if @minimum_password_length %>
+          <p class="text-sm text-gray-600 mb-2">
+            <%= @minimum_password_length %>文字以上で入力してください
+          </p>
+        <% end %>
+        <%= f.password_field :password,
+              autocomplete: "new-password",
+              placeholder: "パスワードを入力してください",
+              class: "w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-base text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500" %>
+      </div>
+
+      <div>
+        <%= f.label :password_confirmation, "パスワード（確認）", class: "block text-base font-semibold text-gray-800 mb-2" %>
+        <%= f.password_field :password_confirmation,
+              autocomplete: "new-password",
+              placeholder: "もう一度入力してください",
+              class: "w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-base text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-teal-500" %>
+      </div>
+
+      <div class="pt-2">
+        <%= f.submit "登録する",
+              class: "w-full rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-lg font-bold py-4 transition" %>
+      </div>
+    <% end %>
+
+    <div class="mt-8 text-center text-base text-gray-700">
+      すでに登録済みの方は
+      <%= link_to "ログインはこちら", new_session_path(resource_name), class: "font-semibold text-teal-700 underline underline-offset-2 hover:text-teal-800" %>
+    </div>
+  </div>
+</div>
