@@ -16,4 +16,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  resources :groups do
+    resources :group_memberships, only: %i[create destroy]
+  end
 end
