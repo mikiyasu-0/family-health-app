@@ -1,0 +1,32 @@
+<div class="min-h-screen bg-gray-50 py-10 px-4">
+  <div class="mx-auto max-w-xl rounded-2xl bg-white p-8 shadow-md">
+    <h1 class="mb-8 text-2xl font-bold text-gray-800">グループ作成</h1>
+
+    <%= form_with model: @group, local: true, class: "space-y-6" do |f| %>
+      <div>
+        <%= f.label :name, "名前", class: "mb-2 block text-sm font-medium text-gray-700" %>
+        <%= f.text_field :name,
+              placeholder: "例：家族グループ",
+              class: "w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-800 placeholder-gray-400 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200" %>
+      </div>
+
+      <div>
+        <label class="mb-2 block text-sm font-medium text-gray-700">
+          グループアイコン画像
+        </label>
+
+        <div class="rounded-lg border border-dashed border-gray-300 bg-gray-50 px-4 py-6 text-sm text-gray-500">
+          グループアイコン画像を選択する
+          <p class="mt-2 text-xs text-gray-400">
+            ※ この機能は今後実装予定です
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <%= f.submit "作成",
+              class: "w-full rounded-lg bg-blue-600 px-4 py-3 text-white font-semibold hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300" %>
+      </div>
+    <% end %>
+  </div>
+</div>
