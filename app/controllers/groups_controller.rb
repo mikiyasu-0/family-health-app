@@ -13,12 +13,20 @@ class GroupsController < ApplicationController
 
   def create
     @group = Group.new(group_params)
-    if @group.save
-      redirect_to groups_path, notice: "グループを作成しました"
-    else
-      flash.now[:alert] = "グループを作成できませんでした"
-      render "new"
+
+    ActiveRecord::Base.transaction do
+      @group.save!
+
+      @group.group_memberships.create!(
+        user: current_user,
+        role: :admin
+      )
     end
+
+    redirect_to groups_path, notice: "グループを作成しました"
+  rescue ActiveRecord::RecordInvalid
+    flash.now[:alert] = "グループを作成できませんでした"
+    render :new, status: :unprocessable_entity
   end
 
   def edit
