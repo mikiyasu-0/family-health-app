@@ -7,6 +7,7 @@ class GroupsController < ApplicationController
   end
 
   def show
+    @members = @group.users 
   end
 
   def new
