@@ -1,0 +1,14 @@
+<div class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100 transition hover:shadow-md">
+  <%= link_to group_path(group), class: "block" do %>
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-lg font-semibold text-gray-800"><%= group.name %></p>
+        <p class="mt-1 text-sm text-gray-500">グループ詳細を見る</p>
+      </div>
+
+      <div class="text-sm font-medium text-blue-600">
+        詳細へ
+      </div>
+    </div>
+  <% end %>
+</div>
