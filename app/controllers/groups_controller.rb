@@ -1,11 +1,13 @@
 class GroupsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_group, only: %i[show]
 
   def index
     @groups = current_user.groups
   end
 
   def show
+    @members = @group.users
   end
 
   def new
@@ -40,6 +42,10 @@ class GroupsController < ApplicationController
   end
 
   private
+
+  def set_group
+    @group = current_user.groups.find(params[:id])
+  end
 
   def group_params
     params.require(:group).permit(:name)

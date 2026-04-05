@@ -1,0 +1,70 @@
+<div class="min-h-screen bg-gray-50 px-4 py-10">
+  <div class="mx-auto max-w-3xl space-y-6">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-800">グループ詳細</h1>
+    </div>
+
+    <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
+      <p class="text-sm font-medium text-gray-500">グループ名</p>
+      <h2 class="mt-2 text-xl font-semibold text-gray-800"><%= @group.name %></h2>
+    </div>
+
+    <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
+      <div class="flex items-center justify-between">
+        <h2 class="text-lg font-semibold text-gray-800">メンバー一覧</h2>
+        <span class="rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-600">
+          <%= @members.count %>人
+        </span>
+      </div>
+
+      <% if @members.any? %>
+        <ul class="mt-4 divide-y divide-gray-100">
+          <% @members.each do |member| %>
+            <li class="flex items-center justify-between py-4">
+              <div class="flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 text-sm font-semibold text-blue-600">
+                  <%= member.name.to_s.first&.upcase || "?" %>
+                </div>
+                <div>
+                  <p class="font-medium text-gray-800"><%= member.name %></p>
+                  <p class="text-sm text-gray-500"><%= member.email %></p>
+                </div>
+              </div>
+
+              <div class="text-sm text-gray-400">
+                メンバー
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="mt-4 text-sm text-gray-500">メンバーはまだいません</p>
+      <% end %>
+    </div>
+
+    <div class="rounded-2xl border border-dashed border-gray-300 bg-white p-6 shadow-sm">
+      <h2 class="text-lg font-semibold text-gray-800">操作</h2>
+      <p class="mt-2 text-sm text-gray-500">
+        今後ここに招待リンク発行ボタンや退会ボタンを配置する予定です。
+      </p>
+
+      <div class="mt-4 flex flex-wrap gap-3">
+        <button
+          type="button"
+          class="rounded-lg bg-gray-200 px-4 py-2 text-sm font-medium text-gray-500 cursor-not-allowed"
+          disabled
+        >
+          招待リンクを発行する（今後実装）
+        </button>
+
+        <button
+          type="button"
+          class="rounded-lg bg-gray-200 px-4 py-2 text-sm font-medium text-gray-500 cursor-not-allowed"
+          disabled
+        >
+          グループを退会する（今後実装）
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
