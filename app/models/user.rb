@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_many :group_memberships, dependent: :destroy
   has_many :groups, through: :group_memberships
+  has_many :sent_invitations, class_name: "Invitation", foreign_key: :invited_by_id
+  has_many :used_invitations, class_name: "Invitation", foreign_key: :used_by_id
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
