@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  group: one
+  invited_by: one
+  used_by: one
+  status: 1
+  token: MyString
+  expires_at: 2026-04-07 13:59:08
+  accepted_at: 2026-04-07 13:59:08
+
+two:
+  group: two
+  invited_by: two
+  used_by: two
+  status: 1
+  token: MyString
+  expires_at: 2026-04-07 13:59:08
+  accepted_at: 2026-04-07 13:59:08
