@@ -1,5 +1,4 @@
 class InvitationsController < ApplicationController
-
   def create
     @group = current_user.groups.find(params[:group_id])
 
