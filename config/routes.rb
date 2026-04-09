@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   get "invitations/:token", to: "invitations#show", as: :invitation
   get "invitations/:token/share", to: "invitations#share", as: :share_invitation
+  post "group_memberships/accept", to: "group_memberships#accept", as: :accept_group_memberships
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
