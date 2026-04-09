@@ -47,23 +47,20 @@
       <p class="mt-2 text-sm text-gray-500">
         今後ここに招待リンク発行ボタンや退会ボタンを配置する予定です。
       </p>
+    <div class="mt-4 flex flex-wrap gap-3">
+      <%= button_to "招待リンクを発行する",
+          group_invitations_path(@group),
+          method: :post,
+          form_class: "inline-block",
+          class: "rounded-lg bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600" %>
 
-      <div class="mt-4 flex flex-wrap gap-3">
-        <button
-          type="button"
-          class="rounded-lg bg-gray-200 px-4 py-2 text-sm font-medium text-gray-500 cursor-not-allowed"
-          disabled
-        >
-          招待リンクを発行する（今後実装）
-        </button>
-
-        <button
-          type="button"
-          class="rounded-lg bg-gray-200 px-4 py-2 text-sm font-medium text-gray-500 cursor-not-allowed"
-          disabled
-        >
-          グループを退会する（今後実装）
-        </button>
+      <button
+        type="button"
+        class="rounded-lg bg-gray-200 px-4 py-2 text-sm font-medium text-gray-500 cursor-not-allowed"
+        disabled
+      >
+        グループを退会する（今後実装）
+      </button>
       </div>
     </div>
   </div>
