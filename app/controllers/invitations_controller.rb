@@ -14,4 +14,20 @@ class InvitationsController < ApplicationController
       redirect_to group_path(@group), alert: "作成に失敗しました"
     end
   end
+
+  def show
+    @invitation = Invitation.find_by(token: params[:token])
+
+    if @invitation.nil?
+      redirect_to root_path, alert: "無効な招待リンクです"
+      return
+    end
+
+    unless @invitation.usable?
+      redirect_to root_path, alert: "この招待リンクは使用できません"
+      return
+    end
+
+    session[:invitation_token] = params[:token]
+  end
 end
