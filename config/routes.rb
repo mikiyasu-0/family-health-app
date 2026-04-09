@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   end
 
   get "invitations/:token", to: "invitations#show", as: :invitation
+  get "invitations/:token/share", to: "invitations#share", as: :share_invitation
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
