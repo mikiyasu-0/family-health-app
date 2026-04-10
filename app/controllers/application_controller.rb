@@ -5,7 +5,11 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def after_sign_in_path_for(resource)
-    stored_location_for(resource) || dashboard_path
+    if session[:invitation_token].present?
+      invitation_path(session[:invitation_token])
+    else
+      stored_location_for(resource) || dashboard_path
+    end
   end
 
   def after_sign_out_path_for(_resource_or_scope)
