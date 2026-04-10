@@ -1,21 +1,10 @@
 class GroupMembershipsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_invitation, only: %i[accept]
+  before_action :validate_invitation!, only: %i[accept]
 
   def accept
-    token = session[:invitation_token]
-    invitation = Invitation.find_by(token: token)
-
-    if invitation.nil?
-      redirect_to root_path, alert: "無効な招待です。"
-      return
-    end
-
-    unless invitation.usable?
-      redirect_to root_path, alert: "この招待は使用できません"
-      return
-    end
-
-    group = invitation.group
+    group = @invitation.group
 
     if current_user.groups.exists?(group.id)
       redirect_to group_path(group), notice: "すでにグループに所属しています"
@@ -30,7 +19,7 @@ class GroupMembershipsController < ApplicationController
       )
 
       #招待の更新
-      invitation.update!(
+      @invitation.update!(
         status: :accepted,
         used_by: current_user,
         accepted_at: Time.current
@@ -41,5 +30,25 @@ class GroupMembershipsController < ApplicationController
     session.delete(:invitation_token)
 
     redirect_to group_path(group), notice: "グループに参加しました"
+  end
+
+  private
+
+  def set_invitation
+    token = session[:invitation_token]
+    @invitation = Invitation.find_by(token: token)
+  end
+
+  def validate_invitation!
+    if @invitation.nil?
+      redirect_to root_path, alert: "無効な招待リンクです"
+      return
+    elsif @invitation.expired?
+      redirect_to root_path, alert: "招待リンクの期限が切れています"
+      return
+    elsif @invitation.accepted?
+      redirect_to root_path, alert: "この招待リンクはすでに使用されています"
+      return
+    end
   end
 end
