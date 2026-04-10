@@ -12,13 +12,13 @@ class GroupMembershipsController < ApplicationController
     end
 
     ActiveRecord::Base.transaction do
-      #GroupMembershipを作成して参加
+      # GroupMembershipを作成して参加
       GroupMembership.create!(
         user: current_user,
         group: group
       )
 
-      #招待の更新
+      # 招待の更新
       @invitation.update!(
         status: :accepted,
         used_by: current_user,
@@ -26,7 +26,7 @@ class GroupMembershipsController < ApplicationController
       )
     end
 
-    #招待tokenは使用後消す
+    # 招待tokenは使用後消す
     session.delete(:invitation_token)
 
     redirect_to group_path(group), notice: "グループに参加しました"
@@ -42,13 +42,10 @@ class GroupMembershipsController < ApplicationController
   def validate_invitation!
     if @invitation.nil?
       redirect_to root_path, alert: "無効な招待リンクです"
-      return
     elsif @invitation.expired?
       redirect_to root_path, alert: "招待リンクの期限が切れています"
-      return
     elsif @invitation.accepted?
       redirect_to root_path, alert: "この招待リンクはすでに使用されています"
-      return
     end
   end
 end

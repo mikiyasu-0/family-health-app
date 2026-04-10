@@ -35,13 +35,10 @@ class InvitationsController < ApplicationController
   def validate_invitation!
     if @invitation.nil?
       redirect_to root_path, alert: "無効な招待リンクです"
-      return
     elsif @invitation.expired?
       redirect_to root_path, alert: "招待リンクの期限が切れています"
-      return
     elsif @invitation.accepted?
       redirect_to root_path, alert: "この招待リンクはすでに使用されています"
-      return
     end
   end
 end
