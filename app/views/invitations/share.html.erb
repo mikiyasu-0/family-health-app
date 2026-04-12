@@ -1,4 +1,11 @@
-<div class="min-h-screen bg-orange-50 px-4 py-10">
+<% share_text = "#{@invitation.invited_by.name}さんから#{@invitation.group.name}に招待されています。下のリンクから参加してください。" %>
+
+<div class="min-h-screen bg-orange-50 px-4 py-10"
+  data-controller="invite-share"
+  data-invite-share-invite-url-value="<%= @invite_url %>"
+  data-invite-share-share-title-value="グループへの招待"
+  data-invite-share-share-text-value="<%= j share_text %>"
+>
   <div class="mx-auto max-w-2xl rounded-3xl bg-white p-8 shadow-md">
     <h1 class="text-2xl font-bold text-gray-800">招待リンクを作成しました</h1>
 
@@ -8,7 +15,7 @@
 
     <div class="mt-6 rounded-2xl border border-orange-200 bg-orange-50 p-4">
       <p class="text-sm font-medium text-gray-500">招待URL</p>
-      <p id="invite-url" class="mt-2 break-all text-sm text-gray-800">
+      <p class="mt-2 break-all text-sm text-gray-800">
         <%= @invite_url %>
       </p>
     </div>
@@ -23,7 +30,7 @@
     <div class="mt-8 flex flex-col gap-3 sm:flex-row">
       <button
         type="button"
-        id="copy-button"
+        data-action="click->invite-share#copy"
         class="w-full rounded-2xl bg-teal-600 px-6 py-4 text-base font-bold text-white hover:bg-teal-700"
       >
         リンクをコピー
@@ -31,48 +38,13 @@
 
       <button
         type="button"
-        id="share-button"
+        data-action="click->invite-share#share"
         class="w-full rounded-2xl bg-orange-500 px-6 py-4 text-base font-bold text-white hover:bg-orange-600"
       >
         共有する
       </button>
     </div>
 
-    <p id="share-message" class="mt-4 text-sm text-gray-600"></p>
+    <p data-invite-share-target="message" class="mt-4 text-sm text-gray-600"></p>
   </div>
 </div>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const inviteUrl = "<%= j @invite_url %>";
-    const copyButton = document.getElementById("copy-button");
-    const shareButton = document.getElementById("share-button");
-    const message = document.getElementById("share-message");
-
-    copyButton.addEventListener("click", async function () {
-      try {
-        await navigator.clipboard.writeText(inviteUrl);
-        message.textContent = "招待リンクをコピーしました。";
-      } catch (error) {
-        message.textContent = "コピーに失敗しました。リンクを手動でコピーしてください。";
-      }
-    });
-
-    shareButton.addEventListener("click", async function () {
-      if (navigator.share) {
-        try {
-          await navigator.share({
-            title: "グループへの招待",
-            text: "<%= j "#{@invitation.invited_by.name}さんから#{@invitation.group.name}に招待されています。下のリンクから参加してください。" %>",
-            url: inviteUrl
-          });
-          message.textContent = "共有画面を開きました。";
-        } catch (error) {
-          message.textContent = "共有をキャンセルしました。";
-        }
-      } else {
-        message.textContent = "この端末では共有機能が使えません。コピーして送ってください。";
-      }
-    });
-  });
-</script>

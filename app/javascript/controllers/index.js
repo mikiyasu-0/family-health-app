@@ -6,3 +6,6 @@ import { application } from "./application"
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import InviteShareController from "./invite_share_controller"
+application.register("invite-share", InviteShareController)
