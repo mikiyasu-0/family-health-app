@@ -32,6 +32,22 @@ class GroupMembershipsController < ApplicationController
     redirect_to group_path(group), notice: "グループに参加しました"
   end
 
+  def destroy
+    @group = current_user.groups.find(params[:group_id])
+    membership = @group.group_memberships.find_by(user: current_user)
+
+    if membership.nil?
+      redirect_to dashboard_path, alert: "このグループには所属していません"
+    elsif @group.users.count == 1
+      redirect_to group_path(@group), alert: "最後の1人なので退会できません"
+    elsif membership.admin? && @group.group_memberships.admin.count == 1
+      redirect_to group_path(@group), alert: "最後のadminなので退会できません"
+    else
+      membership.destroy!
+      redirect_to dashboard_path, notice: "グループを退会しました"
+    end
+  end
+
   private
 
   def set_invitation
