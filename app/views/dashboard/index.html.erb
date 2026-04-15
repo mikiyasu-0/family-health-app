@@ -1,2 +1,38 @@
 <h1>ログイン後トップページ</h1>
-<p>Find me in app/views/dashboard/index.html.erb</p>
+
+<% @exercise_types.each do |exercise_type| %>
+  <% today_record = @today_exercise_records.find { |record| record.exercise_type == exercise_type } %>
+
+  <div>
+    <p>
+      <% case exercise_type %>
+      <% when "walk" %>
+        散歩
+      <% when "chair_squat" %>
+        椅子スクワット
+      <% when "heel_raise" %>
+        かかと上げ
+      <% when "rest" %>
+        休み
+      <% end %>
+    </p>
+
+    <% if today_record.present? %>
+      <p>記録済み</p>
+
+      <%= form_with model: today_record, local: true do |f| %>
+        <div>
+          <%= f.text_area :memo, rows: 3, placeholder: "メモを入力" %>
+        </div>
+        <div>
+          <%= f.submit "メモを保存" %>
+        </div>
+      <% end %>
+    <% else %>
+      <%= button_to "記録する",
+          exercise_records_path,
+          method: :post,
+          params: { exercise_record: { exercise_type: exercise_type } } %>
+    <% end %>
+  </div>
+<% end %>
