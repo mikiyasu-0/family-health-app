@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     resources :invitations, only: %i[create]
   end
 
+  resources :exercise_records, only: %i[create edit update]
+
   get "invitations/:token", to: "invitations#show", as: :invitation
   get "invitations/:token/share", to: "invitations#share", as: :share_invitation
   post "group_memberships/accept", to: "group_memberships#accept", as: :accept_group_memberships
