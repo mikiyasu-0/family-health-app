@@ -1,4 +1,3 @@
-<h1>ログイン後トップページ</h1>
 
 <% @exercise_types.each do |exercise_type| %>
   <% today_record = @today_exercise_records.find { |record| record.exercise_type == exercise_type } %>
@@ -35,4 +34,39 @@
           params: { exercise_record: { exercise_type: exercise_type } } %>
     <% end %>
   </div>
+<% end %>
+
+<h2>今日の運動記録</h2>
+
+<% if @today_exercise_records.any? %>
+  <% @exercise_types.each do |exercise_type| %>
+    <% today_record = @today_exercise_records.find { |record| record.exercise_type == exercise_type } %>
+
+    <% if today_record.present? %>
+      <div>
+        <p>
+          <% case exercise_type %>
+          <% when "walk" %>
+            散歩
+          <% when "chair_squat" %>
+            椅子スクワット
+          <% when "heel_raise" %>
+            かかと上げ
+          <% when "rest" %>
+            休み
+          <% end %>
+        </p>
+
+        <p>メモ: <%= today_record.memo.presence || "メモはありません" %></p>
+
+        <div>
+          リアクション機能の表示は今後追加予定
+        </div>
+      </div>
+
+      <hr>
+    <% end %>
+  <% end %>
+<% else %>
+  <p>今日はまだ運動記録がありません</p>
 <% end %>
