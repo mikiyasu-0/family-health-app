@@ -1,72 +1,90 @@
+<div class="mx-auto max-w-2xl space-y-8 p-4">
+  <section class="space-y-4">
+    <h1 class="text-2xl font-bold">今日の運動を記録する</h1>
 
-<% @exercise_types.each do |exercise_type| %>
-  <% today_record = @today_exercise_records.find { |record| record.exercise_type == exercise_type } %>
+    <div class="grid grid-cols-2 gap-4">
+      <% @exercise_types.each do |exercise_type| %>
+        <% today_record = @today_exercise_records.find { |record| record.exercise_type == exercise_type } %>
 
-  <div>
-    <p>
-      <% case exercise_type %>
-      <% when "walk" %>
-        散歩
-      <% when "chair_squat" %>
-        椅子スクワット
-      <% when "heel_raise" %>
-        かかと上げ
-      <% when "rest" %>
-        休み
-      <% end %>
-    </p>
+        <div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+          <p class="text-lg font-semibold text-gray-800">
+            <% case exercise_type %>
+            <% when "walk" %>
+              散歩
+            <% when "chair_squat" %>
+              椅子スクワット
+            <% when "heel_raise" %>
+              かかと上げ
+            <% when "rest" %>
+              休み
+            <% end %>
+          </p>
 
-    <% if today_record.present? %>
-      <p>記録済み</p>
+          <% if today_record.present? %>
+            <p class="mt-2 inline-block rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-700">
+              記録済み
+            </p>
 
-      <%= form_with model: today_record, local: true do |f| %>
-        <div>
-          <%= f.text_area :memo, rows: 3, placeholder: "メモを入力" %>
-        </div>
-        <div>
-          <%= f.submit "メモを保存" %>
-        </div>
-      <% end %>
-    <% else %>
-      <%= button_to "記録する",
-          exercise_records_path,
-          method: :post,
-          params: { exercise_record: { exercise_type: exercise_type } } %>
-    <% end %>
-  </div>
-<% end %>
-
-<h2>今日の運動記録</h2>
-
-<% if @today_exercise_records.any? %>
-  <% @exercise_types.each do |exercise_type| %>
-    <% today_record = @today_exercise_records.find { |record| record.exercise_type == exercise_type } %>
-
-    <% if today_record.present? %>
-      <div>
-        <p>
-          <% case exercise_type %>
-          <% when "walk" %>
-            散歩
-          <% when "chair_squat" %>
-            椅子スクワット
-          <% when "heel_raise" %>
-            かかと上げ
-          <% when "rest" %>
-            休み
+            <%= form_with model: today_record, local: true do |f| %>
+              <div>
+                <%= f.text_area :memo,
+                    rows: 3,
+                    placeholder: "メモを入力",
+                    class: "mt-3 w-full rounded-lg border border-gray-300 p-3 text-sm transition focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-200" %>
+              </div>
+              <div>
+                <%= f.submit "メモを保存",
+                    class: "mt-3 rounded-lg bg-teal-600 px-4 py-2 text-sm font-medium text-white shadow-md transition hover:bg-teal-700 active:scale-95 focus:outline-none focus:ring-2 focus:ring-teal-300" %>
+              </div>
+            <% end %>
+          <% else %>
+            <div class="mt-3 flex justify-center">
+              <%= button_to "記録する",
+                  exercise_records_path,
+                  method: :post,
+                  params: { exercise_record: { exercise_type: exercise_type } },
+                  class: "flex h-32 w-32 items-center justify-center rounded-xl bg-orange-500 text-lg font-semibold text-white shadow-md transition hover:bg-orange-600 active:scale-95 focus:outline-none focus:ring-2 focus:ring-orange-300" %>
+            </div>
           <% end %>
-        </p>
-
-        <p>メモ: <%= today_record.memo.presence || "メモはありません" %></p>
-
-        <div>
-          リアクション機能の表示は今後追加予定
         </div>
-      </div>
+      <% end %>
+    </div>
+  </section>
 
-      <hr>
-    <% end %>
-  <% end %>
-<% else %>
-  <p>今日はまだ運動記録がありません</p>
-<% end %>
+  <section class="space-y-4">
+    <h2 class="text-xl font-bold text-gray-900">今日の運動記録</h2>
+
+    <div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+      <% if @today_exercise_records.any? %>
+        <% @exercise_types.each do |exercise_type| %>
+          <% today_record = @today_exercise_records.find { |record| record.exercise_type == exercise_type } %>
+
+          <% if today_record.present? %>
+            <div class="py-3">
+              <p class="text-base font-semibold text-gray-800">
+                <% case exercise_type %>
+                <% when "walk" %>
+                  散歩
+                <% when "chair_squat" %>
+                  椅子スクワット
+                <% when "heel_raise" %>
+                  かかと上げ
+                <% when "rest" %>
+                  休み
+                <% end %>
+             </p>
+
+             <p class="mt-1 text-sm text-gray-600">
+               <%= today_record.memo.presence || "メモはありません" %>
+             </p>
+           </div>
+
+           <div class="border-t border-gray-100"></div>
+         <% end %>
+        <% end %>
+      <% else %>
+        <p class="text-sm text-gray-500">今日はまだ運動記録がありません</p>
+      <% end %>
+    </div>
+  </section>
+</div>
