@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [] do
-    resources :exercise_records, only: [:index]
+    resources :exercise_records, only: %i[index]
   end
 
   resources :exercise_records, only: %i[create edit update]
