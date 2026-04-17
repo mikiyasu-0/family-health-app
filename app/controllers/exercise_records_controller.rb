@@ -2,6 +2,16 @@ class ExerciseRecordsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_exercise_record, only: %i[edit update]
 
+  def index
+    @user = User.find(params[:user_id])
+    @exercise_records = @user.exercise_records.order(created_at: :desc)
+
+    @records_by_date = @exercise_records
+      .group_by { |record| record.created_at.to_date }
+      .sort_by { |date, _| date }
+      .reverse
+  end
+
   def create
     @exercise_record = current_user.exercise_records.new(exercise_record_params)
 
