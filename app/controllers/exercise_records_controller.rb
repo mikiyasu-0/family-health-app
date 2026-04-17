@@ -4,6 +4,12 @@ class ExerciseRecordsController < ApplicationController
 
   def index
     @user = User.find(params[:user_id])
+    @exercise_records = @user.exercise_records.order(created_at: :desc)
+
+    @records_by_date = @exercise_records
+      .group_by { |record| record.created_at.to_date }
+      .sort_by { |date, _| date }
+      .reverse
   end
 
   def create
