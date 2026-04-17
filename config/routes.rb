@@ -10,6 +10,10 @@ Rails.application.routes.draw do
     resources :invitations, only: %i[create]
   end
 
+  resources :users, only: [] do
+    resources :exercise_records, only: [:index]
+  end
+
   resources :exercise_records, only: %i[create edit update]
 
   get "invitations/:token", to: "invitations#show", as: :invitation

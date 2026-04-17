@@ -2,6 +2,10 @@ class ExerciseRecordsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_exercise_record, only: %i[edit update]
 
+  def index
+    @user = User.find(params[:user_id])
+  end
+
   def create
     @exercise_record = current_user.exercise_records.new(exercise_record_params)
 

@@ -26,7 +26,7 @@
                   <%= member.name.to_s.first&.upcase || "?" %>
                 </div>
                 <div>
-                  <p class="font-medium text-gray-800"><%= member.name %></p>
+                  <p class="font-medium text-gray-800"><%= link_to member.name, user_exercise_records_path(member) %></p>
                   <p class="text-sm text-gray-500"><%= member.email %></p>
                 </div>
               </div>
