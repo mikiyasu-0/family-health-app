@@ -1,0 +1,42 @@
+<div class="mx-auto max-w-2xl space-y-6 p-4">
+  <h1 class="text-2xl font-bold text-gray-900">
+    <%= @user.name %>さんの運動履歴
+  </h1>
+
+  <% if @records_by_date.any? %>
+    <% @records_by_date.each do |date, records| %>
+      <section class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+        <h2 class="text-lg font-bold text-gray-800">
+          <%= date.strftime("%Y-%m-%d") %>
+        </h2>
+
+        <div class="mt-4 space-y-3">
+          <% records.each do |record| %>
+            <div class="rounded-xl bg-gray-50 p-4">
+              <p class="text-base font-semibold text-gray-800">
+                <% case record.exercise_type %>
+                <% when "walk" %>
+                  散歩
+                <% when "chair_squat" %>
+                  椅子スクワット
+                <% when "heel_raise" %>
+                  かかと上げ
+                <% when "rest" %>
+                  休み
+                <% end %>
+              </p>
+
+              <p class="mt-2 text-sm leading-relaxed text-gray-600">
+                <%= record.memo.presence || "メモはありません" %>
+              </p>
+            </div>
+          <% end %>
+        </div>
+      </section>
+    <% end %>
+  <% else %>
+    <div class="rounded-2xl border border-dashed border-gray-300 bg-gray-50 p-5 text-sm text-gray-500">
+      運動履歴はまだありません
+    </div>
+  <% end %>
+</div>
