@@ -47,7 +47,7 @@ class ExerciseRecordsController < ApplicationController
   def authorize_user_access!
     return if @user == current_user
 
-    shared_group_exists = current_user.groups.joins(:users).where(users: { id: @user.id}).exists?
+    shared_group_exists = current_user.groups.joins(:users).where(users: { id: @user.id }).exists?
     return if shared_group_exists
 
     redirect_to dashboard_path, alert: "このユーザーの運動履歴は閲覧できません"
