@@ -1,9 +1,10 @@
 class ExerciseRecordsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_exercise_record, only: %i[edit update]
+  before_action :set_user, only: %i[index]
+  before_action :authorize_user_access!, only: %i[index]
 
   def index
-    @user = User.find(params[:user_id])
     @exercise_records = @user.exercise_records.order(created_at: :desc)
 
     @records_by_date = @exercise_records
@@ -37,6 +38,19 @@ class ExerciseRecordsController < ApplicationController
 
   def set_exercise_record
     @exercise_record = current_user.exercise_records.find(params[:id])
+  end
+
+  def set_user
+    @user = User.find(params[:user_id])
+  end
+
+  def authorize_user_access!
+    return if @user == current_user
+
+    shared_group_exists = current_user.groups.joins(:users).where(users: { id: @user.id}).exists?
+    return if shared_group_exists
+
+    redirect_to dashboard_path, alert: "このユーザーの運動履歴は閲覧できません"
   end
 
   def exercise_record_params
