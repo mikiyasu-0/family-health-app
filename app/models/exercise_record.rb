@@ -1,5 +1,6 @@
 class ExerciseRecord < ApplicationRecord
   belongs_to :user
+  has_many :reactions, dependent: :destroy
 
   EXERCISE_TYPES = %w[walk chair_squat heel_raise rest].freeze
 

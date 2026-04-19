@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :sent_invitations, class_name: "Invitation", foreign_key: :invited_by_id
   has_many :used_invitations, class_name: "Invitation", foreign_key: :used_by_id
   has_many :exercise_records, dependent: :destroy
+  has_many :reactions, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
