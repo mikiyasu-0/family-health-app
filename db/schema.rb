@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_04_14_015021) do
+ActiveRecord::Schema[7.2].define(version: 2026_04_19_063809) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -56,6 +56,17 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_14_015021) do
     t.index ["used_by_id"], name: "index_invitations_on_used_by_id"
   end
 
+  create_table "reactions", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "exercise_record_id", null: false
+    t.string "reaction_type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["exercise_record_id"], name: "index_reactions_on_exercise_record_id"
+    t.index ["user_id", "exercise_record_id", "reaction_type"], name: "idx_on_user_id_exercise_record_id_reaction_type_e9f543a667", unique: true
+    t.index ["user_id"], name: "index_reactions_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -75,4 +86,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_14_015021) do
   add_foreign_key "invitations", "groups"
   add_foreign_key "invitations", "users", column: "invited_by_id"
   add_foreign_key "invitations", "users", column: "used_by_id"
+  add_foreign_key "reactions", "exercise_records"
+  add_foreign_key "reactions", "users"
 end
