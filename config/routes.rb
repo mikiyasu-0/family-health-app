@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   end
 
   resources :exercise_records, only: %i[create edit update]
+  resources :reactions, only: %i[create]
 
   get "invitations/:token", to: "invitations#show", as: :invitation
   get "invitations/:token/share", to: "invitations#share", as: :share_invitation
