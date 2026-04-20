@@ -2,8 +2,8 @@ class ReactionsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @exercise_record = ExerciseRecord.find(prams[:exercise_record_id])
-    record_user == @exercise_record.user
+    @exercise_record = ExerciseRecord.find(params[:exercise_record_id])
+    record_user = @exercise_record.user
 
     if record_user == current_user
       return redirect_to dashboard_path, alert: "この運動記録にはリアクションできません"

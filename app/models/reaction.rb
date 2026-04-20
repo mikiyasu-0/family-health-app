@@ -1,5 +1,5 @@
 class Reaction < ApplicationRecord
-  REACTION_TYPES = ["like", "clap", "cheer"].freeze
+  REACTION_TYPES = [ "like", "clap", "cheer" ].freeze
   REACTION_EMOJIS = { "like" => "👍", "clap" => "👏", "cheer" => "💪" }.freeze
   belongs_to :user
   belongs_to :exercise_record
@@ -10,4 +10,4 @@ class Reaction < ApplicationRecord
   def emoji
     REACTION_EMOJIS[reaction_type]
   end
-  end
+end
