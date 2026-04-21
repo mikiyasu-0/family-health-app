@@ -120,13 +120,20 @@
                   <p class="mt-1 text-sm text-gray-600">
                     <%= member_record.memo.presence || "メモはありません" %>
                   </p>
+
+                  <div class="mt-2 flex gap-2">
+                    <% Reaction::REACTION_EMOJIS.each do |reaction_type, emoji| %>
+                      <%= button_to emoji, reactions_path,
+                          params: {
+                            exercise_record_id: member_record.id,
+                            reaction_type: reaction_type
+                          } %>
+                    <% end %>
+                  </div>
                 </div>
               <% end %>
             <% end %>
 
-            <div class="mt-4 rounded-lg bg-gray-50 p-3 text-sm text-gray-500">
-              リアクション機能は今後追加予定
-            </div>
           </div>
         <% end %>
       <% end %>
