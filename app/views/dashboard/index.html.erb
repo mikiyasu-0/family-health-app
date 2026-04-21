@@ -60,7 +60,7 @@
           <% today_record = @today_exercise_records.find { |record| record.exercise_type == exercise_type } %>
 
           <% if today_record.present? %>
-            <div class="py-3">
+            <div class=" border-t border-gray-100 py-3">
               <p class="text-base font-semibold text-gray-800">
                 <% case exercise_type %>
                 <% when "walk" %>
@@ -78,8 +78,6 @@
                 <%= today_record.memo.presence || "メモはありません" %>
               </p>
             </div>
-
-            <div class="border-t border-gray-100"></div>
           <% end %>
         <% end %>
       <% else %>
