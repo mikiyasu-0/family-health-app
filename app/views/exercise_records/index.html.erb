@@ -29,6 +29,16 @@
               <p class="mt-2 text-sm leading-relaxed text-gray-600">
                 <%= record.memo.presence || "メモはありません" %>
               </p>
+
+              <div class="mt-2 flex gap-2">
+                <% Reaction::REACTION_EMOJIS.each do |reaction_type, emoji| %>
+                  <%= button_to emoji, reactions_path,
+                      params: {
+                      exercise_record_id: record.id,
+                      reaction_type: reaction_type
+                      } %>
+                  <% end %>
+              </div>
             </div>
           <% end %>
         </div>
