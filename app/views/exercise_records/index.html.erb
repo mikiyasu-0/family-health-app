@@ -32,7 +32,7 @@
 
               <div class="mt-2 flex gap-3 text-base font-semibold text-gray-800">
                 <% Reaction::REACTION_EMOJIS.each do |reaction_type, emoji| %>
-                  <div class="flex items-center gap-1">
+                  <div class="flex items-center gap-1 px-2 py-1 bg-green-100 rounded-full">
                     <%= button_to emoji, reactions_path,
                         params: {
                           exercise_record_id: record.id,
@@ -40,7 +40,12 @@
                         },
                         form_class: "inline",
                         class: "inline" %>
-                    <span><%= record.reactions.where(reaction_type: reaction_type).count %></span>
+
+                    <% count = record.reactions.where(reaction_type: reaction_type).count %>
+
+                    <% if count > 0 %>
+                      <span><%= count %></span>
+                    <% end %>
                   </div>
                 <% end %>
               </div>
