@@ -30,14 +30,47 @@
                 <%= record.memo.presence || "メモはありません" %>
               </p>
 
-              <div class="mt-2 flex gap-2">
-                <% Reaction::REACTION_EMOJIS.each do |reaction_type, emoji| %>
-                  <%= button_to emoji, reactions_path,
-                      params: {
-                      exercise_record_id: record.id,
-                      reaction_type: reaction_type
-                      } %>
+              <div class="mt-2 flex gap-3">
+
+                <% if @user == current_user %>
+                  <!-- 自分の履歴：件数のみ -->
+                  <% Reaction::REACTION_EMOJIS.each do |reaction_type, emoji| %>
+                    <% count = record.reactions.where(reaction_type: reaction_type).count %>
+
+                    <% if count > 0 %>
+                      <span class="px-2 py-1 bg-gray-100 text-base font-medium text-gray-700 rounded-full">
+                        <%= emoji %> <%= count %>
+                      </span>
+                    <% end %>
                   <% end %>
+                <% else %>
+                  <!-- 他人の履歴：ボタンあり -->
+                  <% Reaction::REACTION_EMOJIS.each do |reaction_type, emoji| %>
+
+                    <% reacted = record.reactions.where(
+                      user_id: current_user.id,
+                      reaction_type: reaction_type
+                    ).exists? %>
+
+                    <div class="flex items-center gap-1 px-2 py-1 text-base font-medium rounded-full
+                      <%= reacted ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500' %>">
+
+                      <%= button_to emoji, reactions_path,
+                          params: {
+                            exercise_record_id: record.id,
+                            reaction_type: reaction_type
+                          },
+                          form_class: "inline",
+                          class: "inline" %>
+
+                      <% count = record.reactions.where(reaction_type: reaction_type).count %>
+
+                      <% if count > 0 %>
+                        <span><%= count %></span>
+                      <% end %>
+                    </div>
+                  <% end %>
+                <% end %>
               </div>
             </div>
           <% end %>
