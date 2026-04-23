@@ -2,38 +2,43 @@
   <div class="flex items-center justify-between px-4 py-3">
     <%= link_to "ファミリーステップ", root_path, class: "text-lg font-semibold" %>
 
-    <button type="button" class="rounded p-2" data-action="click->menu#open" aria-label="メニューを開く">
+    <button type="button" class="rounded p-2 text-2xl" data-action="click->menu#open" aria-label="メニューを開く">
       ☰
     </button>
   </div>
 
   <div class="fixed inset-0 z-40 hidden bg-black/50" data-menu-target="overlay" data-action="click->menu#close"></div>
 
-  <div class="fixed top-0 right-0 z-50 hidden h-full w-63 bg-white shadow-lg" data-menu-target="panel">
+  <div class="fixed top-0 right-0 z-50 hidden h-full flex flex-col w-64 bg-white shadow-lg" data-menu-target="panel">
     <div class="flex items-center justify-between border-b px-4 py-3">
-      <p class="font-semibold">メニュー</p>
+      <% if user_signed_in? %>
+        <p class="font-semibold"><%= current_user.name %></p>
+      <% else %>
+        <p class="font-semibold">メニュー</p>
+      <% end %>
 
       <button type="button" class="rounded p-2" data-action="click->menu#close" aria-label="メニューを閉じる">
-        ×
-      </button>  
+        ✖️
+      </button>
     </div>
 
-    <div class="space-y-4 p-4">
-      <% if user_signed_in? %>
-        <p class="border-b pb-3 text-sm text-gray-700">
-          <%= current_user.name %>
-        </p>
+    <div class="flex-1 flex flex-col justify-between p-4">
+      <div class="space-y-4 p-4">
+        <% if user_signed_in? %>
+          <nav class="flex flex-col space-y-3">
+            <%= link_to "グループ一覧", groups_path, class: "text-left text-gray-800" %>
+            <%= link_to "グループを作成する", new_group_path, class: "text-left text-gray-800" %>
+          </nav>
+        <% end %>
+      </div>
 
-        <nav class="flex flex-col space-y-3">
-          <%= link_to "グループ一覧", groups_path, class: "text-left text-gray-800" %>
-          <%= link_to "グループを作成する", new_group_path, class: "text-left text-gray-800" %>
-          <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "text-left text-gray-800" %>
-        </nav>
-      <% else %>
-        <nav>
+      <div>
+        <% if user_signed_in? %>
+          <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class:"bg-red-100 text-red-600 rounded-full px-4 py-2 hover:bg-red-200" %>
+        <% else %>
           <%= link_to "ログイン", new_user_session_path, class: "text-left text-gray-800" %>
-        </nav>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </header>
