@@ -9,3 +9,6 @@ application.register("hello", HelloController)
 
 import InviteShareController from "./invite_share_controller"
 application.register("invite-share", InviteShareController)
+
+import MenuController from "./menu_controller"
+application.register("menu", MenuController)
