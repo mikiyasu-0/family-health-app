@@ -1,6 +1,6 @@
-<header class="border-b bg-white" data-controller="menu">
+<header class="fixed top-0 left-0 right-0 z-30 border-b bg-white" data-controller="menu">
   <div class="flex items-center justify-between px-4 py-3">
-    <%= link_to "ファミリーステップ", root_path, class: "text-lg font-semibold" %>
+    <%= link_to "ファミリーステップ", dashboard_path, class: "text-lg font-semibold" %>
 
     <button type="button" class="rounded p-2 text-2xl" data-action="click->menu#open" aria-label="メニューを開く">
       ☰
@@ -23,7 +23,7 @@
     </div>
 
     <div class="flex-1 flex flex-col justify-between p-4">
-      <div class="space-y-4 p-4">
+      <div class="space-y-4">
         <% if user_signed_in? %>
           <nav class="flex flex-col space-y-3">
             <%= link_to "グループ一覧", groups_path, class: "text-left text-gray-800" %>
@@ -34,7 +34,7 @@
 
       <div>
         <% if user_signed_in? %>
-          <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class:"bg-red-100 text-red-600 rounded-full px-4 py-2 hover:bg-red-200" %>
+          <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "block bg-red-100 text-red-600 rounded-full px-4 py-2 hover:bg-red-200" %>
         <% else %>
           <%= link_to "ログイン", new_user_session_path, class: "text-left text-gray-800" %>
         <% end %>

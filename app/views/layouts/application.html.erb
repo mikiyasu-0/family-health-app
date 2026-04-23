@@ -18,7 +18,9 @@
   </head>
 
   <body class="bg-white text-gray-800">
-    <div class="max-w-3xl mx-auto px-4 pt-4">
+    <%= render 'shared/header' %>
+
+    <main class="max-w-3xl mx-auto px-4 pt-20">
       <% if notice.present? %>
         <div class="mb-4 rounded-xl border border-teal-300 bg-teal-50 px-4 py-3 text-teal-800">
           <%= notice %>
@@ -30,9 +32,8 @@
           <%= alert %>
         </div>
       <% end %>
-    </div>
 
-  <%= render 'shared/header' %>
-  <%= yield %>
+      <%= yield %>
+    </main>
   </body>
 </html>
