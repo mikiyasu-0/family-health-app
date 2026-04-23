@@ -1,18 +1,44 @@
-<header>
-  <% if user_signed_in? %>
-    <li>
-      <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %>
-    </li>
-  <% else %>
-    <li>
-      <%= link_to "新規登録", new_user_registration_path %>
-    </li>
-    <li>
-      <%= link_to "ログイン", new_user_session_path %>
-    </li>
-  <% end %>
+<header class="fixed top-0 left-0 right-0 z-30 border-b bg-white" data-controller="menu">
+  <div class="flex items-center justify-between px-4 py-3">
+    <%= link_to "ファミリーステップ", dashboard_path, class: "text-lg font-semibold" %>
 
-  <%= link_to "グループを作成する", new_group_path %>
+    <button type="button" class="rounded p-2 text-2xl" data-action="click->menu#open" aria-label="メニューを開く">
+      ☰
+    </button>
+  </div>
 
-  <%= link_to "グループ一覧", groups_path %>
+  <div class="fixed inset-0 z-40 hidden bg-black/50" data-menu-target="overlay" data-action="click->menu#close"></div>
+
+  <div class="fixed top-0 right-0 z-50 hidden h-full flex flex-col w-64 bg-white shadow-lg" data-menu-target="panel">
+    <div class="flex items-center justify-between border-b px-4 py-3">
+      <% if user_signed_in? %>
+        <p class="font-semibold"><%= current_user.name %></p>
+      <% else %>
+        <p class="font-semibold">メニュー</p>
+      <% end %>
+
+      <button type="button" class="rounded p-2" data-action="click->menu#close" aria-label="メニューを閉じる">
+        ✖️
+      </button>
+    </div>
+
+    <div class="flex-1 flex flex-col justify-between p-4">
+      <div class="space-y-4">
+        <% if user_signed_in? %>
+          <nav class="flex flex-col space-y-3">
+            <%= link_to "グループ一覧", groups_path, class: "text-left text-gray-800" %>
+            <%= link_to "グループを作成する", new_group_path, class: "text-left text-gray-800" %>
+          </nav>
+        <% end %>
+      </div>
+
+      <div>
+        <% if user_signed_in? %>
+          <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "block bg-red-100 text-red-600 rounded-full px-4 py-2 hover:bg-red-200" %>
+        <% else %>
+          <%= link_to "ログイン", new_user_session_path, class: "text-left text-gray-800" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </header>
