@@ -26,6 +26,7 @@
       <div class="space-y-4">
         <% if user_signed_in? %>
           <nav class="flex flex-col space-y-3">
+            <%= link_to "マイページ", mypage_path, class: "text-left text-gray-800" %>
             <%= link_to "グループ一覧", groups_path, class: "text-left text-gray-800" %>
             <%= link_to "グループを作成する", new_group_path, class: "text-left text-gray-800" %>
           </nav>

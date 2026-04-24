@@ -3,8 +3,6 @@ Rails.application.routes.draw do
 
   root "home#index"
 
-  get "dashboard", to: "dashboard#index"
-
   resources :groups do
     resources :group_memberships, only: %i[create destroy]
     resources :invitations, only: %i[create]
@@ -17,8 +15,10 @@ Rails.application.routes.draw do
   resources :exercise_records, only: %i[create edit update]
   resources :reactions, only: %i[create]
 
+  get "dashboard", to: "dashboard#index"
   get "invitations/:token", to: "invitations#show", as: :invitation
   get "invitations/:token/share", to: "invitations#share", as: :share_invitation
+  get "mypage", to: "mypages#show", as: :mypage
   post "group_memberships/accept", to: "group_memberships#accept", as: :accept_group_memberships
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
