@@ -6,6 +6,8 @@
     </p>
 
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-6" }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
       <div>
         <%= f.label :email, "メールアドレス", class: "block text-base font-semibold text-gray-800 mb-2" %>
         <%= f.email_field :email,
