@@ -26,6 +26,8 @@
             </p>
 
             <%= form_with model: today_record, local: true do |f| %>
+            <%= render "shared/error_messages", object: today_record %>
+
               <div>
                 <%= f.text_area :memo,
                     rows: 3,

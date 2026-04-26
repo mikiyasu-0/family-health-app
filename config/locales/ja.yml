@@ -1,0 +1,7 @@
+ja:
+  activerecord:
+    attributes:
+      group:
+        name: グループ名
+      exercise_record:
+        memo: メモ
