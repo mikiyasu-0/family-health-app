@@ -2,6 +2,10 @@
   <section class="space-y-4">
     <h1 class="text-2xl font-bold">今日の運動を記録する</h1>
 
+    <div class="rounded-xl bg-orange-100 px-4 py-3 text-sm text-gray-700">
+      今日行った運動を選んで記録しましょう。記録すると、家族にも共有されます。
+    </div>
+
     <div class="grid grid-cols-2 gap-4">
       <% @exercise_types.each do |exercise_type| %>
         <% today_record = @today_exercise_records.find { |record| record.exercise_type == exercise_type } %>
@@ -23,6 +27,10 @@
           <% if today_record.present? %>
             <p class="mt-2 inline-block rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-700">
               記録済み
+            </p>
+
+            <p class="mt-2 text-sm text-gray-600">
+              今日の体調や感じたことをメモできます（任意）。
             </p>
 
             <%= form_with model: today_record, local: true do |f| %>
@@ -54,7 +62,9 @@
   </section>
 
   <section class="space-y-4">
-    <h2 class="text-xl font-bold text-gray-900">今日の運動記録</h2>
+    <h2 class="text-xl font-bold text-gray-900">
+      <%= current_user.name %>さんの今日の運動記録
+    </h2>
 
     <div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
       <% if @today_exercise_records.any? %>
@@ -101,7 +111,11 @@
   </section>
 
   <section class="space-y-4">
-    <h2 class="text-xl font-bold text-gray-900">グループメンバーの今日の運動記録</h2>
+    <h2 class="text-xl font-bold text-gray-900">家族の今日の運動記録</h2>
+
+    <p class="rounded-xl bg-orange-100 px-4 py-3 text-sm text-gray-700">
+      家族の記録にリアクションして、がんばりを応援できます。
+    </p>
 
     <% if @group_members_today_records.any? %>
       <% @group_members.each do |member| %>
