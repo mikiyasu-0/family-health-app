@@ -1,4 +1,10 @@
 ja:
+  devise:
+    passwords:
+      send_instructions: "パスワード再設定用のメールを送信しました。メールをご確認ください。"
+      updated: "パスワードを変更しました。新しいパスワードでログインできます。"
+      updated_not_active: "パスワードを変更しました。"
+      no_token: "パスワード再設定メールのリンクからアクセスしてください。"
   activerecord:
     attributes:
       user:
