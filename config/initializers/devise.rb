@@ -229,6 +229,13 @@ Devise.setup do |config|
   # change their passwords.
   config.reset_password_within = 6.hours
 
+  config.mailer_sender =
+    if Rails.env.production?
+      ENV.fetch("MAIL_FROM")
+    else
+      ENV.fetch("MAIL_FROM", "ファミリーステップ <no-reply@familystep-app.com>")
+    end
+
   # When set to false, does not sign a user in automatically after their password is
   # reset. Defaults to true, so a user is signed in automatically after a reset.
   # config.sign_in_after_reset_password = true
