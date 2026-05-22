@@ -13,6 +13,7 @@ class User < ApplicationRecord
            inverse_of: :used_by
   has_many :exercise_records, dependent: :destroy
   has_many :reactions, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
