@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_04_19_063809) do
+ActiveRecord::Schema[7.2].define(version: 2026_05_22_054306) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -56,6 +56,18 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_19_063809) do
     t.index ["used_by_id"], name: "index_invitations_on_used_by_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "notifiable_type", null: false
+    t.bigint "notifiable_id", null: false
+    t.string "notification_type", null: false
+    t.datetime "read_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "reactions", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "exercise_record_id", null: false
@@ -86,6 +98,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_04_19_063809) do
   add_foreign_key "invitations", "groups"
   add_foreign_key "invitations", "users", column: "invited_by_id"
   add_foreign_key "invitations", "users", column: "used_by_id"
+  add_foreign_key "notifications", "users"
   add_foreign_key "reactions", "exercise_records"
   add_foreign_key "reactions", "users"
 end
