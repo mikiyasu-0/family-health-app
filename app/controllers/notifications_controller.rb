@@ -4,6 +4,6 @@ class NotificationsController < ApplicationController
   def index
     @notifications = current_user.notifications
                                  .preload(notifiable: :user)
-                                 .order(create_at: :desc)
+                                 .order(created_at: :desc)
   end
 end
