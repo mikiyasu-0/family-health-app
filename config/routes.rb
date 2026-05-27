@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   resources :exercise_records, only: %i[create edit update]
   resources :reactions, only: %i[create]
+  resources :notifications, only: %i[index]
 
   get "dashboard", to: "dashboard#index"
   get "invitations/:token", to: "invitations#show", as: :invitation

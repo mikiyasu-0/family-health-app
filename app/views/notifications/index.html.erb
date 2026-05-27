@@ -1,0 +1,38 @@
+<section class="space-y-6">
+  <div class="rounded-2xl bg-white p-6 shadow-sm">
+    <h1 class="text-2xl font-bold text-gray-800">
+      通知一覧
+    </h1>
+    <p class="mt-2 text-sm text-gray-600">
+      家族から届いた通知を確認できます。
+    </p>
+  </div>
+
+  <% if @notifications.any? %>
+    <div class="space-y-3">
+      <% @notifications.each do |notification| %>
+        <% reaction = notification.notifiable %>
+        <% reactor = reaction.user %>
+        <% emoji = Reaction::REACTION_EMOJIS.fetch(reaction.reaction_type, "") %>
+
+        <div class="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+          <p class="text-gray-800">
+            <span class="font-semibold"><%= reactor.name %></span>さんが
+            あなたの運動記録にリアクションしました
+            <span><%= emoji %></span>
+          </p>
+
+          <p class="mt-2 text-xs text-gray-500">
+            <%= notification.created_at.strftime("%Y/%m/%d %H:%M") %>
+          </p>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-sm">
+      <p class="text-gray-600">
+        まだ通知はありません。
+      </p>
+    </div>
+  <% end %>
+</section>
