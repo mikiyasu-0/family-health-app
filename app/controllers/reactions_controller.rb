@@ -33,10 +33,25 @@ class ReactionsController < ApplicationController
       )
 
       if reaction.persisted?
+        create_reaction_notification(reaction)
         redirect_back fallback_location: dashboard_path, notice: "リアクションしました"
       else
         redirect_back fallback_location: dashboard_path, alert: "リアクションできませんでした"
       end
     end
+  end
+
+  private
+
+  def create_reaction_notification(reaction)
+    recipient = reaction.exercise_record.user
+
+    return if recipient == current_user
+
+    Notification.create!(
+      user: recipient,
+      notifiable: reaction,
+      notification_type: "reaction"
+    )
   end
 end
