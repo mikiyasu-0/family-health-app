@@ -30,7 +30,16 @@
             <%= link_to "マイページ", mypage_path, class: "text-left text-gray-800" %>
             <%= link_to "グループ一覧", groups_path, class: "text-left text-gray-800" %>
             <%= link_to "グループを作成する", new_group_path, class: "text-left text-gray-800" %>
-            <%= link_to "通知一覧", notifications_path, class: "text-left text-gray-800" %>
+            <%= link_to notifications_path, class: "inline-flex items-center text-left text-gray-800" do %>
+              通知一覧
+
+              <% unread_count = current_user.notifications.unread.count %>
+              <% if unread_count.positive? %>
+                <span class="ml-2 rounded-full bg-red-500 px-2 py-0.5 text-xs font-semibold text-white">
+                  <%= unread_count %>
+                </span>
+              <% end %>
+            <% end %>
           </nav>
         <% end %>
       </div>
