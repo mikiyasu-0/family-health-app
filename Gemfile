@@ -68,3 +68,6 @@ gem "rails-i18n"
 gem "devise-i18n"
 
 gem "resend"
+
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"
