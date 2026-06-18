@@ -81,10 +81,14 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :resend
 
   config.action_mailer.default_url_options = {
-    host: "family-step.onrender.com",
+    host: "familystep-app.com",
     protocol: "https"
   }
 
+  config.action_controller.default_url_options = {
+    host: "familystep-app.com",
+    protocol: "https"
+  }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
