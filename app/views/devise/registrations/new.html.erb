@@ -5,6 +5,24 @@
       アカウントを作成してはじめましょう
     </p>
 
+    <div class="mb-6">
+      <%= button_to user_google_oauth2_omniauth_authorize_path,
+                    method: :post,
+                    data: { turbo: false },
+                    class: "flex w-full items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm font-semibold text-gray-700 shadow-sm hover:bg-gray-50" do %>
+        <span class="flex h-5 w-5 items-center justify-center rounded-full border border-gray-300 text-xs font-bold text-gray-700">
+          G
+        </span>
+        <span>Googleで登録</span>
+      <% end %>
+    </div>
+
+    <div class="my-6 flex items-center">
+      <div class="flex-grow border-t border-gray-200"></div>
+      <span class="mx-4 text-sm text-gray-500">または</span>
+      <div class="flex-grow border-t border-gray-200"></div>
+    </div>
+
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-6" }) do |f| %>
       <%= render "shared/error_messages", object: resource %>
 
