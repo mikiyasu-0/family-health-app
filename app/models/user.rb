@@ -22,4 +22,30 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [ :google_oauth2 ]
 
   validates :name, presence: true, length: { maximum: 30 }
+
+  def self.from_omniauth(auth)
+    return nil if auth.provider == "google_oauth2" && !auth.info.email_verified
+    return nil if auth.info.email.blank?
+
+    user = find_by(provider: auth.provider, uid: auth.uid)
+    return user if user
+
+    return nil if exists?(email: auth.info.email)
+
+    create do |u|
+      u.provider = auth.provider
+      u.uid = auth.uid
+      u.email = auth.info.email
+      u.name = auth.info.name.presence || auth.info.email.split("@").first
+      u.password = SecureRandom.hex(16)
+    end
+  end
+
+  def password_required?
+    super && provider.blank?
+  end
+
+  def password_changeable?
+    provider.blank?
+  end
 end
