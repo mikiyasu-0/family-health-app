@@ -21,7 +21,7 @@ class LongestStreakCalculator
         current_streak = 1
       end
 
-      longest_streak = [longest_streak, current_streak].max
+      longest_streak = [ longest_streak, current_streak ].max
       previous_date = current_date
     end
 
