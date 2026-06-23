@@ -2,6 +2,10 @@ class DashboardController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @current_streak = CurrentStreakCalculator.new(current_user).call
+    @longest_streak = LongestStreakCalculator.new(current_user).call
+    @streak_badge = StreakBadgeSelector.new(@current_streak).call
+
     today_range = Time.current.beginning_of_day..Time.current.end_of_day
 
     @exercise_types = ExerciseRecord::EXERCISE_TYPES

@@ -1,4 +1,35 @@
 <div class="mx-auto max-w-2xl space-y-8 p-4">
+
+  <section class="mb-6 rounded-lg bg-white p-4 shadow">
+    <h2 class="mb-3 text-lg font-bold text-gray-800">今日までの歩み</h2>
+
+    <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+      <div class="rounded-lg bg-orange-50 p-4">
+        <p class="text-sm text-gray-600">今続いている記録</p>
+
+        <div class="mt-1 flex flex-wrap items-center gap-2">
+          <p class="text-2xl font-bold text-orange-600">
+            <%= @current_streak %>日
+          </p>
+
+          <% if @streak_badge.present? %>
+            <div class="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1 text-xs font-semibold text-orange-700 shadow-sm">
+              <span><%= @streak_badge[:icon] %></span>
+              <span><%= @streak_badge[:message] %></span>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="rounded-lg bg-yellow-50 p-4">
+        <p class="text-sm text-gray-600">これまでの最長記録</p>
+        <p class="mt-1 text-2xl font-bold text-yellow-700">
+          <%= @longest_streak %>日
+        </p>
+      </div>
+    </div>
+  </section>
+
   <section class="space-y-4">
     <h1 class="text-2xl font-bold">今日の運動を記録する</h1>
 
