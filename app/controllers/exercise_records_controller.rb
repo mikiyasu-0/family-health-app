@@ -11,7 +11,9 @@ class ExerciseRecordsController < ApplicationController
       .group_by { |record| record.created_at.to_date }
       .sort_by { |date, _| date }
       .reverse
-  end
+
+    @monthly_calendar = MonthlyCalendarBuilder.new(@user).call
+    end
 
   def create
     @exercise_record = current_user.exercise_records.new(exercise_record_params)
