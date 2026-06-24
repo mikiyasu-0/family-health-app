@@ -12,8 +12,14 @@ class ExerciseRecordsController < ApplicationController
       .sort_by { |date, _| date }
       .reverse
 
-    @monthly_calendar = MonthlyCalendarBuilder.new(@user).call
-    end
+    selected_month = selected_calendar_month
+
+    @monthly_calendar = MonthlyCalendarBuilder.new(@user, month: selected_month).call
+    @previous_month = @monthly_calendar[:month].prev_month
+    @next_month = @monthly_calendar[:month].next_month
+    @current_month = current_calendar_month
+    @show_next_month_link = @next_month <= @current_month
+  end
 
   def create
     @exercise_record = current_user.exercise_records.new(exercise_record_params)
@@ -53,6 +59,23 @@ class ExerciseRecordsController < ApplicationController
     return if shared_group_exists
 
     redirect_to dashboard_path, alert: "このユーザーの運動履歴は閲覧できません"
+  end
+
+  def selected_calendar_month
+    selected_month =
+      if params[:month].present?
+        Date.strptime(params[:month], "%Y-%m")
+      else
+        current_calendar_month
+      end
+
+    [ selected_month.beginning_of_month, current_calendar_month ].min
+  rescue Date::Error, ArgumentError
+    current_calendar_month
+  end
+
+  def current_calendar_month
+    Time.current.in_time_zone("Tokyo").to_date.beginning_of_month
   end
 
   def exercise_record_params
