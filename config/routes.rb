@@ -17,7 +17,10 @@ Rails.application.routes.draw do
     resources :exercise_records, only: %i[index]
   end
 
-  resources :exercise_records, only: %i[create edit update]
+  resources :exercise_records, only: %i[create edit update] do
+    resources :comments, only: %i[create]
+  end
+
   resources :reactions, only: %i[create]
   resources :notifications, only: %i[index]
 
