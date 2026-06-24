@@ -3,6 +3,44 @@
     <%= @user.name %>さんの運動履歴
   </h1>
 
+  <% calendar_month = @monthly_calendar[:month] %>
+  <% calendar_dates = @monthly_calendar[:dates] %>
+  <% records_by_date = @monthly_calendar[:records_by_date] %>
+
+  <section class="mb-6 rounded-lg bg-white p-4 shadow">
+    <h2 class="mb-3 text-lg font-bold text-gray-800">
+      記録カレンダー <%= calendar_month.strftime("%Y年%-m月") %>
+    </h2>
+
+    <div class="grid grid-cols-7 gap-1 text-center text-xs font-semibold text-gray-500">
+      <% %w[月 火 水 木 金 土 日].each do |day_name| %>
+        <div class="py-1"><%= day_name %></div>
+      <% end %>
+    </div>
+
+    <div class="mt-1 grid grid-cols-7 gap-1">
+      <% calendar_dates.each do |date| %>
+        <% if date.nil? %>
+          <div class="min-h-16 rounded-md bg-gray-50"></div>
+        <% else %>
+          <% records = records_by_date[date] || [] %>
+
+          <div class="min-h-16 rounded-md border p-1 text-left <%= records.any? ? 'border-orange-200 bg-orange-50' : 'border-gray-100 bg-white' %>">
+            <div class="text-xs font-semibold <%= records.any? ? 'text-orange-700' : 'text-gray-600' %>">
+              <%= date.day %>
+            </div>
+
+            <% if records.any? %>
+              <div class="mt-1 inline-flex rounded-full bg-orange-100 px-2 py-0.5 text-[10px] font-semibold text-orange-700">
+                <%= records.size %>件
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </section>
+
   <% if @records_by_date.any? %>
     <% @records_by_date.each do |date, records| %>
       <section class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
