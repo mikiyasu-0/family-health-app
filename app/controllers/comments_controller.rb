@@ -35,4 +35,3 @@ class CommentsController < ApplicationController
     current_user.groups.exists?(id: @exercise_record.user.groups.select(:id))
   end
 end
-
