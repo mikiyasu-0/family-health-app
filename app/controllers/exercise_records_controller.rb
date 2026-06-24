@@ -69,7 +69,7 @@ class ExerciseRecordsController < ApplicationController
         current_calendar_month
       end
 
-    [selected_month.beginning_of_month, current_calendar_month].min
+    [ selected_month.beginning_of_month, current_calendar_month ].min
   rescue Date::Error, ArgumentError
     current_calendar_month
   end
