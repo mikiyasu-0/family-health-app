@@ -5,9 +5,12 @@ class ExerciseRecordsController < ApplicationController
   before_action :authorize_user_access!, only: %i[index]
 
   def index
-    @exercise_records = @user.exercise_records.order(created_at: :desc)
+    @exercise_records = @user.exercise_records
+                             .includes(comments: :user)
+                             .order(created_at: :desc)
 
     @records_by_date = @exercise_records
+      .includes(:reactions, comments: :user)
       .group_by { |record| record.created_at.to_date }
       .sort_by { |date, _| date }
       .reverse

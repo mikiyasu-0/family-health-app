@@ -1,0 +1,21 @@
+<% if exercise_record.comments.any? %>
+  <div class="mt-4 space-y-2 border-t border-gray-200 pt-3">
+    <% exercise_record.comments.sort_by(&:created_at).each do |comment| %>
+      <div class="rounded-lg bg-white px-3 py-2 shadow-sm">
+        <div class="mb-1 flex items-center justify-between gap-2">
+          <p class="text-sm font-semibold text-gray-700">
+            <%= comment.user.name %>
+          </p>
+
+          <p class="text-xs text-gray-500">
+            <%= l comment.created_at, format: :short %>
+          </p>
+        </div>
+
+        <p class="text-sm leading-relaxed text-gray-800">
+          <%= comment.body %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+<% end %>
