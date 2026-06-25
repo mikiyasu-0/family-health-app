@@ -8,6 +8,7 @@ class CommentsController < ApplicationController
     @comment.user = current_user
 
     if @comment.save
+      create_comment_notification
       redirect_back fallback_location: dashboard_path, notice: "コメントを投稿しました"
     else
       redirect_back fallback_location: dashboard_path, alert: @comment.errors.full_messages.to_sentence
@@ -33,5 +34,15 @@ class CommentsController < ApplicationController
 
   def same_group_user?
     current_user.groups.exists?(id: @exercise_record.user.groups.select(:id))
+  end
+
+  def create_comment_notification
+    recipient = @exercise_record.user
+    return if recipient == current_user
+
+    recipient.notifications.create!(
+      notifiable: @comment,
+      notification_type: "comment"
+    )
   end
 end

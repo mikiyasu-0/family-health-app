@@ -1,5 +1,5 @@
 class Notification < ApplicationRecord
-  NOTIFICATION_TYPES = %w[reaction].freeze
+  NOTIFICATION_TYPES = %w[reaction comment].freeze
 
   belongs_to :user
   belongs_to :notifiable, polymorphic: true
