@@ -181,6 +181,8 @@
                   <% end %>
                 <% end %>
               </div>
+
+            <%= render "comments/comment_list", exercise_record: today_record %>
             </div>
           <% end %>
         <% end %>
@@ -253,6 +255,8 @@
                       </div>
                     <% end %>
                   </div>
+
+                  <%= render "comments/comment_area", exercise_record: member_record %>
                 </div>
               <% end %>
             <% end %>
