@@ -71,3 +71,5 @@ gem "resend"
 
 gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
+
+gem "openai", "~> 0.68.0"
