@@ -9,6 +9,6 @@ class CreateBodyMemos < ActiveRecord::Migration[7.2]
       t.timestamps
     end
 
-    add_index :body_memos, [:user_id, :memo_date], unique: true
+    add_index :body_memos, [ :user_id, :memo_date ], unique: true
   end
 end
