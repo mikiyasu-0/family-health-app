@@ -6,6 +6,7 @@ class DashboardController < ApplicationController
     @longest_streak = LongestStreakCalculator.new(current_user).call
     @streak_badge = StreakBadgeSelector.new(@current_streak).call
     @weekly_summary = WeeklySummaryCalculator.new(current_user).call
+    @body_memo = BodyMemoGenerator.new(user: current_user).call
 
     today_range = Time.current.beginning_of_day..Time.current.end_of_day
 

@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  memo_date: 2026-06-29
+  content: MyText
+  fallback: false
+
+two:
+  user: two
+  memo_date: 2026-06-29
+  content: MyText
+  fallback: false
