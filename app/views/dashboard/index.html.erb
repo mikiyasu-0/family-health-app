@@ -141,6 +141,8 @@
     </div>
   </section>
 
+  <%= render "body_memo_card", body_memo: @body_memo %>
+
   <section class="space-y-4">
     <h2 class="text-xl font-bold text-gray-900">
       <%= current_user.name %>さんの今日の運動記録
@@ -267,37 +269,6 @@
     <% else %>
       <p class="rounded-xl border border-dashed border-gray-300 bg-gray-50 p-4 text-sm text-gray-500">
         今日はまだグループメンバーの運動記録がありません
-      </p>
-    <% end %>
-  </section>
-
-  <section class="rounded-2xl bg-white p-5 shadow-sm">
-    <div class="flex items-center justify-between gap-3">
-      <div>
-       <h2 class="text-lg font-bold text-gray-800">
-          今日のからだメモ
-        </h2>
-        <p class="mt-1 text-sm text-gray-500">
-          今日の運動記録をもとに、ひとことメモを表示します。
-        </p>
-      </div>
-
-      <% if @body_memo&.fallback? %>
-        <span class="shrink-0 rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-500">
-          通常コメント
-        </span>
-      <% end %>
-    </div>
-
-    <div class="mt-4 rounded-xl bg-teal-50 p-4">
-      <p class="text-sm leading-6 text-gray-700">
-        <%= @body_memo&.content || "今日の運動記録をすると、からだメモが表示されます。" %>
-      </p>
-    </div>
-
-    <% if @body_memo.present? && !@body_memo.persisted? %>
-      <p class="mt-2 text-xs text-gray-500">
-        運動記録後に、AIによるからだメモが生成されます。
       </p>
     <% end %>
   </section>
