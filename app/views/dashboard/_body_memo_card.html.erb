@@ -1,0 +1,49 @@
+<section class="rounded-3xl border border-teal-100 bg-gradient-to-br from-teal-50 via-white to-white p-4 shadow-sm sm:p-5">
+  <div class="flex items-start gap-3">
+    <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white text-2xl shadow-sm">
+      🌿
+    </div>
+
+    <div class="min-w-0 flex-1">
+      <div class="flex flex-wrap items-center gap-2">
+        <h2 class="text-base font-bold text-gray-800 sm:text-lg">
+          今日のからだメモ
+        </h2>
+
+        <% if body_memo&.persisted? && body_memo&.fallback? %>
+          <span class="rounded-full bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-500">
+            通常コメント
+          </span>
+        <% elsif body_memo&.persisted? %>
+          <span class="rounded-full bg-teal-100 px-2.5 py-1 text-xs font-medium text-teal-700">
+            AIメモ
+          </span>
+        <% else %>
+          <span class="rounded-full bg-orange-50 px-2.5 py-1 text-xs font-medium text-orange-600">
+            記録後に生成
+          </span>
+        <% end %>
+      </div>
+
+      <p class="mt-1 text-xs leading-5 text-gray-500 sm:text-sm">
+        今日の運動記録をもとに、無理なく続けるためのひとことを表示します。
+      </p>
+
+      <div class="mt-4 rounded-2xl bg-white/80 p-4 shadow-sm">
+        <p class="break-words text-sm leading-7 text-gray-700 sm:text-base sm:leading-8">
+          <%= (body_memo&.content).presence || "今日の運動記録をすると、からだメモが表示されます。" %>
+        </p>
+      </div>
+
+      <% if body_memo.present? && !body_memo.persisted? %>
+        <p class="mt-3 text-xs leading-5 text-gray-500">
+          まずは今日の運動を記録してみましょう。記録後に、からだメモが表示されます。
+        </p>
+      <% elsif body_memo&.fallback? %>
+        <p class="mt-3 text-xs leading-5 text-gray-500">
+          AIコメントを生成できなかったため、通常コメントを表示しています。
+        </p>
+      <% end %>
+    </div>
+  </div>
+</section>
