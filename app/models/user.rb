@@ -50,4 +50,13 @@ class User < ApplicationRecord
   def password_changeable?
     provider.blank?
   end
+
+  def self.create_guest!
+    create!(
+      name: "ゲストユーザー",
+      email: "guest_#{SecureRandom.uuid}@example.com",
+      password: SecureRandom.urlsafe_base64,
+      guest: true
+    )
+  end
 end
