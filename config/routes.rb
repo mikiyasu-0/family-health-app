@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   omniauth_callbacks: "users/omniauth_callbacks"
   }
 
+  post "guest_login", to: "guest_sessions#create", as: :guest_login
+
   root "home#index"
 
   resources :groups do
