@@ -5,7 +5,12 @@ class GuestSessionsController < ApplicationController
       return
     end
 
-    guest_user = User.create_guest!
+    guest_user = ActiveRecord::Base.transaction do
+      user = User.create_guest!
+      GuestSampleDataCreator.new(user).call
+      user
+    end
+
     sign_in guest_user
 
     redirect_to dashboard_path, notice: "ゲストユーザーとしてログインしました。"
