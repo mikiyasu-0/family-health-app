@@ -21,12 +21,12 @@ class GuestSampleDataCreator
 
   def create_sample_users
     [
-      create_sample_users("お父さん"),
-      create_sample_users("お母さん")
+      create_sample_user("お父さん"),
+      create_sample_user("お母さん")
     ]
   end
 
-  def create_sample_users(name)
+  def create_sample_user(name)
     User.create!(
       name: name,
       email: "guest_sample_#{SecureRandom.uuid}@example.com",
