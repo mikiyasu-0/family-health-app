@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  helper_method :admin_user?
+
   def after_sign_in_path_for(resource)
     if session[:invitation_token].present?
       invitation_path(session[:invitation_token])
@@ -21,5 +23,13 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
    devise_parameter_sanitizer.permit(:sign_up, keys: [ :name ])
    devise_parameter_sanitizer.permit(:account_update, keys: [ :name ])
+  end
+
+  private
+
+  def admin_user?
+    current_user.present? &&
+      ENV["ADMIN_EMAIL"].present? &&
+      current_user.email == ENV["ADMIN_EMAIL"]
   end
 end
