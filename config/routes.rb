@@ -44,4 +44,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  namespace :admin do
+    resource :guest_user_cleanup, only: :create
+  end
 end
