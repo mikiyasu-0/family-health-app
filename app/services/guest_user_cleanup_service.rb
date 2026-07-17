@@ -41,7 +41,7 @@ class GuestUserCleanupService
       .where("groups.created_at < ?", cutoff_time)
       .select do |group|
         group.users.any? &&
-          group.user.all? { |user| user.guest? && user.created_at < cutoff_time }
+          group.users.all? { |user| user.guest? && user.created_at < cutoff_time }
       end
   end
 end
