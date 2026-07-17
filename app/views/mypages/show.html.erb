@@ -28,5 +28,23 @@
                     class: "inline-flex items-center rounded-xl bg-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-teal-700" %>
       </div>
     <% end %>
+
+    <% if admin_user? %>
+      <div class="mt-8 rounded-2xl border border-red-200 bg-red-50 p-5">
+        <h2 class="text-base font-bold text-red-700">
+          管理者メニュー
+        </h2>
+
+        <p class="mt-2 text-sm text-red-600">
+          作成から一定期間が経過したゲストユーザーと関連データを削除します。
+        </p>
+
+        <%= button_to "古いゲストデータを削除する",
+                      admin_guest_user_cleanup_path,
+                      method: :post,
+                      data: { turbo_confirm: "古いゲストユーザーと関連データを削除します。実行しますか？" },
+                      class: "mt-4 rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-700" %>
+      </div>
+    <% end %>
   </div>
 </div>
