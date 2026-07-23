@@ -88,41 +88,42 @@
 
                 <% if @user == current_user %>
                   <!-- 自分の履歴：件数のみ -->
-                  <% Reaction::REACTION_EMOJIS.each do |reaction_type, emoji| %>
+                  <% Reaction::REACTION_TYPES.each do |reaction_type| %>
                     <% count = record.reactions.where(reaction_type: reaction_type).count %>
 
                     <% if count > 0 %>
-                      <span class="px-2 py-1 bg-gray-100 text-base font-medium text-gray-700 rounded-full">
-                        <%= emoji %> <%= count %>
+                      <span class="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2 py-1 text-sm font-medium text-gray-700">
+                        <%= render "shared/reaction_icon", reaction_type: reaction_type %>
+                        <%= count %>
                       </span>
                     <% end %>
                   <% end %>
                 <% else %>
                   <!-- 他人の履歴：ボタンあり -->
-                  <% Reaction::REACTION_EMOJIS.each do |reaction_type, emoji| %>
+                  <% Reaction::REACTION_TYPES.each do |reaction_type| %>
 
                     <% reacted = record.reactions.where(
                       user_id: current_user.id,
                       reaction_type: reaction_type
                     ).exists? %>
 
-                    <div class="flex items-center gap-1 px-2 py-1 text-base font-medium rounded-full
-                      <%= reacted ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500' %>">
+                    <% count = record.reactions.where(reaction_type: reaction_type).count %>
 
-                      <%= button_to emoji, reactions_path,
-                          params: {
-                            exercise_record_id: record.id,
-                            reaction_type: reaction_type
-                          },
-                          form_class: "inline",
-                          class: "inline" %>
+                    <%= button_to reactions_path,
+                        params: {
+                          exercise_record_id: record.id,
+                          reaction_type: reaction_type
+                        },
+                        form_class: "inline",
+                        class: "inline-flex items-center gap-1 rounded-full border px-3 py-1.5 text-sm font-medium transition
+                          #{reacted ? 'border-green-300 bg-green-100 text-green-700 hover:bg-green-200' : 'border-gray-200 bg-white text-gray-500 hover:bg-gray-50'}" do %>
 
-                      <% count = record.reactions.where(reaction_type: reaction_type).count %>
+                      <%= render "shared/reaction_icon", reaction_type: reaction_type %>
 
                       <% if count > 0 %>
                         <span><%= count %></span>
                       <% end %>
-                    </div>
+                    <% end %>
                   <% end %>
                 <% end %>
               </div>
