@@ -20,12 +20,13 @@
               <% when "reaction" %>
                 <% reaction = notification.notifiable %>
                 <% reactor = reaction.user %>
-                <% emoji = Reaction::REACTION_EMOJIS.fetch(reaction.reaction_type, "") %>
 
                 <p>
                   <span class="font-semibold"><%= reactor.name %></span>さんが
                   あなたの運動記録にリアクションしました
-                  <span><%= emoji %></span>
+                  <span  class="flex flex-wrap items-center gap-1 text-green-700">
+                    <%= render "shared/reaction_icon", reaction_type: reaction.reaction_type %>
+                  </span>
                 </p>
 
               <% when "comment" %>
