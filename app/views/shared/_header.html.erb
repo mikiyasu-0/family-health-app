@@ -25,30 +25,137 @@
     <div class="flex-1 flex flex-col justify-between p-4">
       <div class="space-y-4">
         <% if user_signed_in? %>
-          <nav class="flex flex-col space-y-3">
-            <%= link_to "ホーム", dashboard_path, class: "text-left text-gray-800" %>
-            <%= link_to "マイページ", mypage_path, class: "text-left text-gray-800" %>
-            <%= link_to "グループ一覧", groups_path, class: "text-left text-gray-800" %>
-            <%= link_to "グループを作成する", new_group_path, class: "text-left text-gray-800" %>
-            <%= link_to notifications_path, class: "inline-flex items-center text-left text-gray-800" do %>
-              通知一覧
+          <nav class="flex flex-col space-y-1">
+            <%= link_to dashboard_path,
+                class: "flex min-h-11 items-center gap-3 rounded-lg px-3 py-2 text-gray-700 transition hover:bg-gray-100" do %>
+              <%= render "shared/menu_icon", icon_name: "home" %>
+              <span>ホーム</span>
+            <% end %>
+
+            <%= link_to mypage_path,
+                class: "flex min-h-11 items-center gap-3 rounded-lg px-3 py-2 text-gray-700 transition hover:bg-gray-100" do %>
+              <%= render "shared/menu_icon", icon_name: "user-circle" %>
+              <span>マイページ</span>
+            <% end %>
+
+            <%= link_to groups_path,
+                class: "flex min-h-11 items-center gap-3 rounded-lg px-3 py-2 text-gray-700 transition hover:bg-gray-100" do %>
+              <%= render "shared/menu_icon", icon_name: "user-group" %>
+              <span>グループ一覧</span>
+            <% end %>
+
+            <%= link_to new_group_path,
+                class: "flex min-h-11 items-center gap-3 rounded-lg px-3 py-2 text-gray-700 transition hover:bg-gray-100" do %>
+              <%= render "shared/menu_icon", icon_name: "user-plus" %>
+              <span>グループ作成</span>
+            <% end %>
+
+            <%= link_to notifications_path,
+                class: "flex min-h-10 items-center gap-3 rounded-lg px-3 py-1.5 text-left text-gray-700 transition hover:bg-gray-100" do %>
+
+              <%= render "shared/menu_icon", icon_name: "bell" %>
+
+              <span class="flex-1">
+                通知一覧
+              </span>
 
               <% unread_count = current_user.notifications.unread.count %>
               <% if unread_count.positive? %>
-                <span class="ml-2 rounded-full bg-red-500 px-2 py-0.5 text-xs font-semibold text-white">
+                <span class="rounded-full bg-red-500 px-2 py-0.5 text-xs font-semibold text-white">
                   <%= unread_count %>
                 </span>
               <% end %>
             <% end %>
           </nav>
         <% end %>
+
+        <div class="mt-6">
+          <p class="px-3 text-xs font-semibold text-gray-400">
+            サポート・情報
+          </p>
+
+          <div class="mt-2 space-y-1">
+            <div
+              class="flex min-h-10 items-center gap-3 rounded-lg px-3 py-1.5 text-gray-400"
+              aria-disabled="true"
+            >
+              <%= render "shared/menu_icon", icon_name: "question-mark-circle" %>
+
+              <span class="flex-1">
+                使い方
+              </span>
+
+              <span class="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-500">
+                準備中
+              </span>
+            </div>
+
+            <div
+              class="flex min-h-10 items-center gap-3 rounded-lg px-3 py-1.5 text-gray-400"
+              aria-disabled="true"
+            >
+              <%= render "shared/menu_icon", icon_name: "envelope" %>
+
+              <span class="flex-1">
+                お問い合わせ
+              </span>
+
+              <span class="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-500">
+                準備中
+              </span>
+            </div>
+
+            <div
+              class="flex min-h-10 items-center gap-3 rounded-lg px-3 py-1.5 text-gray-400"
+              aria-disabled="true"
+            >
+              <%= render "shared/menu_icon", icon_name: "document-text" %>
+
+              <span class="flex-1">
+                利用規約
+              </span>
+
+              <span class="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-500">
+                準備中
+              </span>
+            </div>
+
+            <div
+              class="flex min-h-10 items-center gap-3 rounded-lg px-3 py-1.5 text-gray-400"
+              aria-disabled="true"
+            >
+              <%= render "shared/menu_icon", icon_name: "shield-check" %>
+
+              <span class="flex-1">
+                プライバシーポリシー
+              </span>
+
+              <span class="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-500">
+                準備中
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div>
         <% if user_signed_in? %>
-          <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "block bg-red-100 text-red-600 rounded-full px-4 py-2 hover:bg-red-200" %>
+          <%= link_to destroy_user_session_path,
+              data: { turbo_method: :delete },
+              class: "flex min-h-10 items-center justify-center gap-2 rounded-full bg-red-100 px-4 py-2 font-medium text-red-600 transition hover:bg-red-200" do %>
+
+            <%= render "shared/menu_icon", icon_name: "arrow-left-start-on-rectangle" %>
+
+            <span>ログアウト</span>
+          <% end %>
         <% else %>
-          <%= link_to "ログイン", new_user_session_path, class: "text-left text-gray-800" %>
+          <%= link_to new_user_session_path,
+              class: "flex min-h-10 items-center justify-center gap-2 rounded-full bg-teal-600 px-4 py-2 font-medium text-white transition hover:bg-teal-700" do %>
+
+            <%= render "shared/menu_icon", icon_name: "arrow-right-end-on-rectangle" %>
+
+            <span>ログイン</span>
+          <% end %>
         <% end %>
       </div>
     </div>
