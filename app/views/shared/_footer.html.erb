@@ -1,0 +1,28 @@
+<footer class="fixed inset-x-0 bottom-0 z-20 border-t border-gray-200 bg-white">
+  <nav class="mx-auto grid h-16 max-w-3xl grid-cols-3">
+    <% home_active = controller_name == "dashboard" %>
+    <% groups_active = controller_name == "groups" %>
+    <% notifications_active = controller_name == "notifications" %>
+
+    <%= link_to dashboard_path,
+        class: "flex h-full w-full flex-col items-center justify-center gap-1 py-2 text-xs font-medium transition
+          #{home_active ? 'text-teal-600' : 'text-gray-500 hover:text-gray-700'}" do %>
+      <%= render "shared/menu_icon", icon_name: "home" %>
+      <span>ホーム</span>
+    <% end %>
+
+    <%= link_to groups_path,
+        class: "flex h-full w-full flex-col items-center justify-center gap-1 border-l border-gray-200 py-2 text-xs font-medium transition
+          #{groups_active ? 'text-teal-600' : 'text-gray-500 hover:text-gray-700'}" do %>
+      <%= render "shared/menu_icon", icon_name: "user-group" %>
+      <span>グループ一覧</span>
+    <% end %>
+
+    <%= link_to notifications_path,
+        class: "flex h-full w-full flex-col items-center justify-center gap-1 border-l border-gray-200 py-2 text-xs font-medium transition
+          #{notifications_active ? 'text-teal-600' : 'text-gray-500 hover:text-gray-700'}" do %>
+      <%= render "shared/menu_icon", icon_name: "bell" %>
+      <span>通知一覧</span>
+    <% end %>
+  </nav>
+</footer>

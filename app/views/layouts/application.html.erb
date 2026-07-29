@@ -17,10 +17,10 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body class="bg-orange-50 text-gray-800">
+  <body class="min-h-screen bg-orange-50 text-gray-800">
     <%= render 'shared/header' %>
 
-    <main class="max-w-3xl mx-auto px-4 pt-20">
+    <main class="max-w-3xl mx-auto px-4 pt-20 <%= user_signed_in? ? 'pb-24' : 'pb-8' %>">
       <% if notice.present? %>
         <div class="mb-4 rounded-xl border border-teal-300 bg-teal-50 px-4 py-3 text-teal-800">
           <%= notice %>
@@ -35,5 +35,7 @@
 
       <%= yield %>
     </main>
+
+    <%= render "shared/footer" if user_signed_in? %>
   </body>
 </html>
