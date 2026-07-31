@@ -1,15 +1,20 @@
-<section class="space-y-4">
-  <h1 class="text-2xl font-bold">今日の運動を記録する</h1>
+<section class="overflow-hidden rounded-2xl border border-orange-200 bg-white shadow-sm">
+  <header class="border-b border-orange-200 bg-orange-50 px-4 py-4">
+    <h1 class="text-xl font-bold text-gray-900">
+      今日の運動を記録する
+    </h1>
 
-  <div class="rounded-xl bg-orange-100 px-4 py-3 text-sm text-gray-700">
-    <p>
-      下の項目を押すと、今日の記録として保存され、家族にも共有されます。
-    </p>
-    <p class="mt-1">
-      記録後は、今日の体調や感じたことをメモできます（任意）。
-    </p>
-  </div>
+    <div class="mt-2 space-y-1 text-sm text-gray-700">
+      <p>
+        下の項目を押すと、今日の記録として保存され、家族にも共有されます。
+      </p>
+      <p>
+        記録後は、今日の体調や感じたことをメモできます（任意）。
+      </p>
+    </div>
+  </header>
 
+  <div class="p-4">
   <div class="grid grid-cols-2 gap-4">
     <% exercise_types.each do |exercise_type| %>
       <% today_record = today_exercise_records.find { |record| record.exercise_type == exercise_type } %>
@@ -75,5 +80,6 @@
         <% end %>
       </div>
     <% end %>
+  </div>
   </div>
 </section>
