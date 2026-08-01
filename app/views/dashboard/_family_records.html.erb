@@ -1,0 +1,103 @@
+<section class="overflow-hidden rounded-2xl border border-teal-200 bg-white shadow-sm">
+  <header class="border-b border-teal-200 bg-teal-50 px-4 py-4">
+    <h2 class="text-xl font-bold text-gray-900">
+      家族の今日の運動記録
+    </h2>
+
+    <p class="mt-1 text-sm text-gray-700">
+      リアクションやコメントを押して、家族のがんばりを応援できます。
+    </p>
+  </header>
+
+  <div class="p-4">
+  <% if group_members_today_records.any? %>
+    <div class="space-y-4">
+      <% group_members.each do |member| %>
+        <% member_today_records = records_by_user[member.id] || [] %>
+
+        <% if member_today_records.any? %>
+          <article class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+            <header class="flex items-center gap-3 border-b border-teal-100 bg-teal-50 px-4 py-3">
+              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-teal-600 font-bold text-white">
+                <%= member.name.to_s.first %>
+              </span>
+
+              <h3 class="text-lg font-bold text-gray-900">
+                <%= member.name %>さん
+              </h3>
+            </header>
+
+            <div class="divide-y divide-gray-200">
+              <% exercise_types.each do |exercise_type| %>
+                <% member_record = member_today_records.find { |record| record.exercise_type == exercise_type } %>
+
+                <% if member_record.present? %>
+                  <section class="px-4 py-3">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                      <h4 class="font-bold text-gray-800">
+                        <% case exercise_type %>
+                        <% when "walk" %>
+                          散歩
+                        <% when "chair_squat" %>
+                          椅子スクワット
+                        <% when "heel_raise" %>
+                          かかと上げ
+                        <% when "rest" %>
+                          休み
+                        <% end %>
+                      </h4>
+
+                      <div class="flex flex-wrap gap-2">
+                        <% Reaction::REACTION_TYPES.each do |reaction_type| %>
+                          <% reacted = member_record.reactions.where(
+                               user_id: user.id,
+                               reaction_type: reaction_type
+                             ).exists? %>
+
+                          <% count = member_record.reactions.where(
+                               reaction_type: reaction_type
+                             ).count %>
+
+                          <%= button_to reactions_path,
+                              params: {
+                                exercise_record_id: member_record.id,
+                                reaction_type: reaction_type
+                              },
+                              form_class: "inline",
+                              class: "inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-sm font-medium transition
+                                #{reacted ? 'border-green-300 bg-green-100 text-green-700 hover:bg-green-200' : 'border-gray-200 bg-white text-gray-500 hover:bg-gray-50'}" do %>
+
+                            <%= render "shared/reaction_icon",
+                                       reaction_type: reaction_type %>
+
+                            <% if count > 0 %>
+                              <span><%= count %></span>
+                            <% end %>
+                          <% end %>
+                        <% end %>
+                      </div>
+                    </div>
+
+                    <p class="mt-2 text-sm text-gray-600">
+                      <%= member_record.memo.presence || "メモはありません" %>
+                    </p>
+
+                    <div class="mt-3">
+                      <%= render "comments/comment_area",
+                                 exercise_record: member_record %>
+                    </div>
+                  </section>
+                <% end %>
+              <% end %>
+            </div>
+          </article>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="rounded-xl border border-dashed border-gray-300 bg-gray-50 p-4 text-sm text-gray-500">
+      今日はまだグループメンバーの運動記録がありません
+    </p>
+  <% end %>
+  </div>
+</section>
