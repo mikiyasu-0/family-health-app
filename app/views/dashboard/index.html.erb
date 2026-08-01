@@ -1,26 +1,44 @@
-<div class="mx-auto max-w-2xl space-y-8 p-4">
+<% content_for :main_class,
+               "mx-auto w-full max-w-7xl px-4 pt-20 sm:px-6 lg:px-8 xl:px-10" %>
 
+<div class="space-y-6">
+  <%# 一番上：運動のふりかえり %>
   <%= render "activity_summary",
              current_streak: @current_streak,
              longest_streak: @longest_streak,
              streak_badge: @streak_badge,
              weekly_summary: @weekly_summary %>
 
-  <%= render "exercise_record_section",
-             exercise_types: @exercise_types,
-             today_exercise_records: @today_exercise_records %>
+  <%# 今日の記録操作・自分の記録 %>
+  <div class="grid gap-6 xl:grid-cols-12 xl:items-start">
+    <div class="xl:col-span-7">
+      <%= render "exercise_record_section",
+                 exercise_types: @exercise_types,
+                 today_exercise_records: @today_exercise_records %>
+    </div>
 
-  <%= render "body_memo_card", body_memo: @body_memo %>
+    <div class="xl:col-span-5">
+      <%= render "current_user_records",
+                 user: current_user,
+                 exercise_types: @exercise_types,
+                 today_exercise_records: @today_exercise_records %>
+    </div>
+  </div>
 
-  <%= render "current_user_records",
-             user: current_user,
-             exercise_types: @exercise_types,
-             today_exercise_records: @today_exercise_records %>
+  <%# 家族の記録・からだメモ %>
+  <div class="grid gap-6 xl:grid-cols-12 xl:items-start">
+    <div class="xl:order-2 xl:col-span-4">
+      <%= render "body_memo_card",
+                 body_memo: @body_memo %>
+    </div>
 
-  <%= render "family_records",
-             user: current_user,
-             group_members: @group_members,
-             group_members_today_records: @group_members_today_records,
-             records_by_user: @records_by_user,
-             exercise_types: @exercise_types %>
+    <div class="xl:order-1 xl:col-span-8">
+      <%= render "family_records",
+                 user: current_user,
+                 group_members: @group_members,
+                 group_members_today_records: @group_members_today_records,
+                 records_by_user: @records_by_user,
+                 exercise_types: @exercise_types %>
+    </div>
+  </div>
 </div>
