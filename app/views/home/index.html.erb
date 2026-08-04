@@ -33,6 +33,10 @@
           登録せずにアプリの画面をお試しいただけます。
         </p>
       </div>
+
+      <%= link_to "使い方を見る",
+            usage_path,
+            class: "inline-flex min-h-12 items-center justify-center rounded-xl border-2 border-teal-400 bg-white px-6 py-3 text-base font-bold text-teal-700 transition hover:bg-teal-50" %>
     </div>
   </div>
 
@@ -72,5 +76,11 @@
       <li>家族グループを作成して、家族を招待します</li>
       <li>運動を記録し、家族の記録にリアクションします</li>
     </ol>
+
+    <div class="mt-6 text-center">
+      <%= link_to "詳しい使い方を見る",
+                  usage_path,
+                  class: "font-bold text-teal-700 underline underline-offset-4 hover:text-teal-800" %>
+    </div>
   </div>
 </section>
