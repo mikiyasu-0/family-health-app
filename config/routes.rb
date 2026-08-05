@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
   resources :reactions, only: %i[create]
   resources :notifications, only: %i[index]
+  resource :contact, only: %i[new create]
 
   get "dashboard", to: "dashboard#index"
   get "invitations/:token", to: "invitations#show", as: :invitation
