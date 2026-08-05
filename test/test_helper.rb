@@ -1,4 +1,5 @@
 ENV["RAILS_ENV"] ||= "test"
+ENV["CONTACT_EMAIL"] ||= "contact-test@example.com"
 require_relative "../config/environment"
 require "rails/test_help"
 

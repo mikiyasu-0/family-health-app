@@ -14,8 +14,8 @@ class ContactMailerTest < ActionMailer::TestCase
       "【ファミリーステップ】お問い合わせが届きました",
       mail.subject
     )
-    assert_equal [ENV.fetch("CONTACT_EMAIL")], mail.to
-    assert_equal ["test@example.com"], mail.reply_to
+    assert_equal [ ENV.fetch("CONTACT_EMAIL") ], mail.to
+    assert_equal [ "test@example.com" ], mail.reply_to
 
     text_body = mail.text_part.body.decoded
 
