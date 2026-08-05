@@ -81,20 +81,11 @@
               <span>使い方</span>
             <% end %>
 
-            <div
-              class="flex min-h-10 items-center gap-3 rounded-lg px-3 py-1.5 text-gray-400"
-              aria-disabled="true"
-            >
+            <%= link_to new_contact_path,
+                class: "flex min-h-10 items-center gap-3 rounded-lg px-3 py-1.5 text-left text-gray-700 transition hover:bg-gray-100" do %>
               <%= render "shared/menu_icon", icon_name: "envelope" %>
-
-              <span class="flex-1">
-                お問い合わせ
-              </span>
-
-              <span class="rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-500">
-                準備中
-              </span>
-            </div>
+              <span>お問い合わせ</span>
+            <% end %>
 
             <div
               class="flex min-h-10 items-center gap-3 rounded-lg px-3 py-1.5 text-gray-400"
