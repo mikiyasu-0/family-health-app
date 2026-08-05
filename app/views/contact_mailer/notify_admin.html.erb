@@ -1,0 +1,23 @@
+<h1>お問い合わせが届きました</h1>
+
+<p>
+  ファミリーステップのお問い合わせフォームから、以下の内容が送信されました。
+</p>
+
+<p>
+  <strong>お名前</strong><br>
+  <%= @contact.name %>
+</p>
+
+<p>
+  <strong>メールアドレス</strong><br>
+  <%= @contact.email %>
+</p>
+
+<p>
+  <strong>お問い合わせ内容</strong>
+</p>
+
+<p>
+  <%= simple_format(h(@contact.message)) %>
+</p>
