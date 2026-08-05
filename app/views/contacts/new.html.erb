@@ -8,6 +8,10 @@
       ファミリーステップに関するご質問やご意見をお送りください。
     </p>
 
+    <div class="mt-6">
+      <%= render "shared/error_messages", object: @contact %>
+    </div>
+
     <%= form_with model: @contact, url: contact_path, local: true, class: "mt-8 space-y-6" do |form| %>
 
       <div>
