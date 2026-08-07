@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   get "mypage", to: "mypages#show", as: :mypage
   get "usage", to: "pages#usage", as: :usage
   get "terms", to: "pages#terms", as: :terms
+  get "privacy_policy", to: "pages#privacy_policy", as: :privacy_policy
   post "group_memberships/accept", to: "group_memberships#accept", as: :accept_group_memberships
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
