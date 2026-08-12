@@ -118,7 +118,7 @@ RSpec.describe "Authentication", type: :request do
         delete destroy_user_session_path
 
         get dashboard_path
-        
+
         expect(response).to redirect_to(new_user_session_path)
       end
     end
